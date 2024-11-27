@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+    <header>
+        <h1 class="main-title">Fitness Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="#" class="tab-link" data-tab="Dashboard">Dashboard</a></li>
+                <li><a href="#" class="tab-link" data-tab="Weight Training">Weight Training</a></li>
+                <li><a href="#" class="tab-link" data-tab="Cardio">Cardio</a></li>
+            </ul>
+            <button class="signout-button" onclick="signOut()">Sign Out</button>
+        </nav>
+    </header>
+    <div class="content">
+        <!-- Dashboard Tab -->
+        <div id="Dashboard" class="tab-content active">
+            <div class="background-box">
+                <h1>Dashboard</h1>
+                <div class="dashboard-boxes">
+                    <div class="top-box">Overview</div>
+                    <div class="top-box">Progress</div>
+                    <div class="bottom-box">Goals</div>
+                </div>
+            </div>
+        </div>
+        <!-- Weight Training Tab -->
+<div id="Weight Training" class="tab-content">
+    <div class="background-box">
+        <h1>Weight Training</h1>
+        <div class="dashboard-boxes">
+            <div class="top-box">
+                <h2>Choose Sets and Reps</h2>
+                <label for="sets">Number of Sets:</label>
+                <select id="sets" name="sets">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                <label for="reps">Number of Reps:</label>
+                <select id="reps" name="reps">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
+            </div>            
+            <div class="top-box">Trying to figure out what to put in this box</div>
+            <div class="bottom-box">
+                <h2>Exercise List</h2>
+                <ul class="exercise-list">
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Arnold Press">
+                            Arnold Press
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Barbell Lunge">
+                            Barbell Lunge
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Bench Press">
+                            Bench Press
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Biceps Curl">
+                            Biceps Curl
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Bulgarian Split Squat">
+                            Bulgarian Split Squat
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Chest Press">
+                            Chest Press
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Deadlift">
+                            Deadlift
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Dumbbell Chest Fly">
+                            Dumbbell Chest Fly
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Dumbbell Curl">
+                            Dumbbell Curl
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Dumbbell Lateral Raise">
+                            Dumbbell Lateral Raise
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Dumbbell Row">
+                            Dumbbell Row
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Goblet Squat">
+                            Goblet Squat
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Incline Dumbbell Press">
+                            Incline Dumbbell Press
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Leg Extension">
+                            Leg Extension
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Leg Press">
+                            Leg Press
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Lunge">
+                            Lunge
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Lying Triceps Extension">
+                            Lying Triceps Extension
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Overhead Press">
+                            Overhead Press
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Pull-down">
+                            Pull-down
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Pull-up">
+                            Pull-up
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Push-up">
+                            Push-up
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Romanian Deadlift">
+                            Romanian Deadlift
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="exercise" value="Squat">
+                            Squat
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+</div>
+        <!-- Cardio Tab -->
+        <div id="Cardio" class="tab-content">
+            <div class="background-box">
+                <h1>Cardio</h1>
+                <div class="dashboard-boxes">
+                    <div class="top-box">Type of Cardio</div>
+                    <div class="top-box">Time Spent</div>
+                    <div class="bottom-box">Distance Traveled</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="homepage.js"></script>
+</body>
+</html>
