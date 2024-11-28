@@ -1,0 +1,226 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #E3F2FD;
+    text-align: center;
+    color: #333333;
+}
+
+/* Header Section */
+header {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    position: relative;
+}
+
+/* Main Title Styling */
+.main-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Navigation Styles */
+nav {
+    display: flex;
+    justify-content: center; /* Center the navigation buttons */
+    margin-top: 1px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+/* Buttons Styling */
+.nav-link,
+.nav-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    background-color: lightblue;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: none;
+    outline: none;
+}
+
+.nav-link:hover,
+.nav-button:hover {
+    background-color: blue;
+    transform: scale(1.05);
+}
+
+/* Sign Out Button */
+.signout {
+    position: relative; 
+    margin: 0 auto; 
+    display: block; 
+    background-color: lightblue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 500px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.signout:hover {
+    background-color: blue;
+    transform: scale(1.1);
+}
+
+
+
+/* Dashboard Section */
+.content {
+    padding: 20px;
+}
+
+.background-box {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px auto;
+    width: 1000px; /* Make dashboard box wider */
+    max-width: 1600px; /* Large maximum width */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Tab Content Styles */
+.tab-content.active {
+    display: block;
+}
+
+.dashboard-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Increased gap between boxes */
+    justify-content: center; /* Center the boxes */
+}
+
+/* Box Styles */
+.top-box,
+.bottom-box {
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    border: 1px solid #007BFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    color: #333333;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.top-box:hover,
+.bottom-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.top-box {
+    width: 48%; /* Wide boxes */
+    height: 150px; /* Reduced height */
+}
+
+.bottom-box {
+    width: 100%; /* Full width for the bottom box */
+    height: 100px; /* Reduced height */
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+/* Sign Out Button */
+.signout-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: #FF6F61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.signout-button:hover {
+    background-color: #007BFF;
+    transform: scale(1.1);
+}
+
+/* Forms and Dropdowns */
+label {
+    font-size: 14px;
+    color: #333333;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    background-color: white;
+    color: #333333;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+select:focus {
+    border-color: #FF6F61;
+}
+
+/* Exercise List */
+.exercise-list {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #007BFF;
+    background-color: #E3F2FD;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-list li {
+    padding: 10px;
+    border-bottom: 1px solid #007BFF;
+    display: flex;
+    justify-content: space-between;
+}
+
+.exercise-list li:last-child {
+    border-bottom: none;
+}
+
+.exercise-list li:hover {
+    background-color: #d1e9fc;
+}
+
+.exercise-list label {
+    font-size: 16px;
+    color: #333333;
+}

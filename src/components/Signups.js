@@ -6,6 +6,7 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showModal, setShowModal] = useState(false); // Modal visibility state
   const navigate = useNavigate();
 
   const handleSignup = (e) => {
@@ -14,8 +15,12 @@ function Signup() {
       alert('Passwords do not match!');
       return;
     }
-    alert('Signup successful!');
-    navigate('/login');
+    setShowModal(true); // Show modal on successful signup
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false); // Hide modal
+    navigate('/login'); // Navigate to login page
   };
 
   return (
@@ -51,6 +56,17 @@ function Signup() {
       <p>
         <Link to="/" className="back-home-link">Back to Home</Link>
       </p>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Signup Successful!</h3>
+            <p>You can now log in with your new account.</p>
+            <button onClick={handleModalClose}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

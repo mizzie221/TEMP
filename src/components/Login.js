@@ -5,17 +5,27 @@ import '../styles/LoginSignups.css';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // State for success modal visibility
+  const [showErrorModal, setShowErrorModal] = useState(false); // State for error modal visibility
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     // Mock authentication
     if (email === 'test@test.com' && password === 'password') {
-      alert('Login successful!');
-      navigate('/dashboard');
+      setShowSuccessModal(true); // Show success modal on valid login
     } else {
-      alert('Invalid email or password.');
+      setShowErrorModal(true); // Show error modal on invalid login
     }
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false); // Close success modal
+    navigate('/dashboard'); // Navigate to Dashboard
+  };
+
+  const handleErrorModalClose = () => {
+    setShowErrorModal(false); // Close error modal
   };
 
   return (
@@ -44,6 +54,28 @@ function Login() {
       <p>
         <Link to="/" className="back-home-link">Back to Home</Link>
       </p>
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Login Successful!</h3>
+            <p>Welcome back! Redirecting to your dashboard...</p>
+            <button onClick={handleSuccessModalClose}>OK</button>
+          </div>
+        </div>
+      )}
+
+      {/* Error Modal */}
+      {showErrorModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Login Failed</h3>
+            <p>The email or password you entered is incorrect. Please try again.</p>
+            <button onClick={handleErrorModalClose}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
