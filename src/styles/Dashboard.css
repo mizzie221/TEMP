@@ -7,7 +7,6 @@ body {
     color: #333333;
 }
 
-/* Header Section */
 header {
     padding: 10px;
     background-color: #007BFF;
@@ -20,7 +19,6 @@ header {
     flex-direction: column;
     align-items: center; /* Center items horizontally */
     justify-content: center; /* Center items vertically */
-    position: relative;
 }
 
 /* Main Title Styling */
@@ -31,13 +29,6 @@ header {
     margin-bottom: 10px;
 }
 
-/* Navigation Styles */
-nav {
-    display: flex;
-    justify-content: center; /* Center the navigation buttons */
-    margin-top: 1px;
-}
-
 nav ul {
     list-style: none;
     padding: 0;
@@ -46,9 +37,38 @@ nav ul {
     gap: 15px;
 }
 
-/* Buttons Styling */
-.nav-link,
-.nav-button {
+/* Navigation Styles */
+nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;          
+    margin: 0 20px;               
+    position: relative;
+}
+
+.signout {
+    position: absolute; /* Place it independently */
+    top: 10px;
+    right: 20px; /* Move it to the far right */
+    background-color: lightblue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: -50px;
+    width: 410px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+.signout:hover {
+    background-color: blue;
+    transform: scale(1.1);
+}
+  
+  /* Shared Buttons (Dashboard, Weight Training, Cardio) */
+.nav-link {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     font-weight: 500;
@@ -61,36 +81,21 @@ nav ul {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: none;
     outline: none;
-}
-
-.nav-link:hover,
-.nav-button:hover {
+    margin-right: 15px; /* Evenly spaced */
+    }
+  
+.nav-link:hover {
     background-color: blue;
     transform: scale(1.05);
 }
-
-/* Sign Out Button */
-.signout {
-    position: relative; 
-    margin: 0 auto; 
-    display: block; 
-    background-color: lightblue;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-size: 14px;
-    cursor: pointer;
-    width: 500px;
-    transition: background-color 0.3s, transform 0.3s;
+  
+/* Align Navigation Links */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between the buttons */
+    margin-top: 20px;
 }
-
-.signout:hover {
-    background-color: blue;
-    transform: scale(1.1);
-}
-
-
 
 /* Dashboard Section */
 .content {
@@ -149,26 +154,6 @@ nav ul {
     height: 100px; /* Reduced height */
     margin-top: 20px;
     overflow: hidden;
-}
-
-/* Sign Out Button */
-.signout-button {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    background-color: #FF6F61;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.signout-button:hover {
-    background-color: #007BFF;
-    transform: scale(1.1);
 }
 
 /* Forms and Dropdowns */

@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import '../styles/Dashboard.css'; 
+import Home from './Home';
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
+  const [isSignedOut, setIsSignedOut] = useState(false);
 
   const signOut = () => {
-    window.location.href = '/'; // Redirect to the home page
+    setIsSignedOut(true);
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  if (isSignedOut) {
+    return <Home />;
+  }
 
   return (
     <div>
@@ -19,38 +25,37 @@ const HomePage = () => {
         <h1 className="main-title">Fitness Tracker</h1>
         <nav>
           <button className="signout" onClick={signOut}>
-            Sign Out
+              Sign Out
           </button>
+
           <ul className="nav-links">
-            <li>
-              <button
-                className={`nav-link ${activeTab === 'Dashboard' ? 'active' : ''}`}
-                onClick={() => handleTabClick('Dashboard')}
-              >
-                Dashboard
-              </button>
-            </li>
-            <li>
-              <button
-                className={`nav-link ${activeTab === 'Weight Training' ? 'active' : ''}`}
-                onClick={() => handleTabClick('Weight Training')}
-              >
-                Weight Training
-              </button>
-            </li>
-            <li>
-              <button
-                className={`nav-link ${activeTab === 'Cardio' ? 'active' : ''}`}
-                onClick={() => handleTabClick('Cardio')}
-              >
-                Cardio
-              </button>
-            </li>
+              <li>
+                  <button
+                      className={`nav-link ${activeTab === 'Dashboard' ? 'active' : ''}`}
+                      onClick={() => handleTabClick('Dashboard')}
+                  >
+                      Dashboard
+                  </button>
+              </li>
+              <li>
+                  <button
+                      className={`nav-link ${activeTab === 'Weight Training' ? 'active' : ''}`}
+                      onClick={() => handleTabClick('Weight Training')}
+                  >
+                      Weight Training
+                  </button>
+              </li>
+              <li>
+                  <button
+                      className={`nav-link ${activeTab === 'Cardio' ? 'active' : ''}`}
+                      onClick={() => handleTabClick('Cardio')}
+                  >
+                      Cardio
+                  </button>
+              </li>
           </ul>
         </nav>
-      </header>
-
-
+    </header>
 
       {/* Tab Content */}
       <div className="content">
