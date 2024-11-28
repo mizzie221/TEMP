@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import Calendar from 'react-calendar'; // Import Calendar
+import 'react-calendar/dist/Calendar.css'; // Import Calendar styles
 import '../styles/Dashboard.css'; 
 import Home from './Home';
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [isSignedOut, setIsSignedOut] = useState(false);
+  const [workoutDates, setWorkoutDates] = useState([]); // Track workout dates
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Selected date on calendar
 
   const signOut = () => {
     setIsSignedOut(true);
@@ -12,6 +16,15 @@ const HomePage = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+  };
+
+  const handleDateClick = (date) => {
+    const dateString = date.toDateString();
+    if (!workoutDates.includes(dateString)) {
+      setWorkoutDates([...workoutDates, dateString]);
+    } else {
+      setWorkoutDates(workoutDates.filter((d) => d !== dateString));
+    }
   };
 
   if (isSignedOut) {
@@ -25,37 +38,37 @@ const HomePage = () => {
         <h1 className="main-title">Fitness Tracker</h1>
         <nav>
           <button className="signout" onClick={signOut}>
-              Sign Out
+            Sign Out
           </button>
 
           <ul className="nav-links">
-              <li>
-                  <button
-                      className={`nav-link ${activeTab === 'Dashboard' ? 'active' : ''}`}
-                      onClick={() => handleTabClick('Dashboard')}
-                  >
-                      Dashboard
-                  </button>
-              </li>
-              <li>
-                  <button
-                      className={`nav-link ${activeTab === 'Weight Training' ? 'active' : ''}`}
-                      onClick={() => handleTabClick('Weight Training')}
-                  >
-                      Weight Training
-                  </button>
-              </li>
-              <li>
-                  <button
-                      className={`nav-link ${activeTab === 'Cardio' ? 'active' : ''}`}
-                      onClick={() => handleTabClick('Cardio')}
-                  >
-                      Cardio
-                  </button>
-              </li>
+            <li>
+              <button
+                className={`nav-link ${activeTab === 'Dashboard' ? 'active' : ''}`}
+                onClick={() => handleTabClick('Dashboard')}
+              >
+                Dashboard
+              </button>
+            </li>
+            <li>
+              <button
+                className={`nav-link ${activeTab === 'Weight Training' ? 'active' : ''}`}
+                onClick={() => handleTabClick('Weight Training')}
+              >
+                Weight Training
+              </button>
+            </li>
+            <li>
+              <button
+                className={`nav-link ${activeTab === 'Cardio' ? 'active' : ''}`}
+                onClick={() => handleTabClick('Cardio')}
+              >
+                Cardio
+              </button>
+            </li>
           </ul>
         </nav>
-    </header>
+      </header>
 
       {/* Tab Content */}
       <div className="content">
@@ -64,8 +77,27 @@ const HomePage = () => {
             <div className="background-box">
               <h1>Dashboard</h1>
               <div className="dashboard-boxes">
-                <div className="top-box">Overview</div>
-                <div className="top-box">Progress</div>
+                <div className="top-box">
+                  <h2>Check-In Calendar</h2>
+                  <Calendar
+                    onClickDay={handleDateClick}
+                    value={selectedDate}
+                    tileClassName={({ date }) =>
+                      workoutDates.includes(date.toDateString()) ? 'workout-day' : null
+                    }
+                  />
+                  <p>
+                    {workoutDates.includes(selectedDate.toDateString())
+                      ? 'You worked out on this day!'
+                      : 'You did not check in for this day.'}
+                  </p>
+                </div>
+                <div className="top-box">
+                  <h2>Progress</h2>
+                  <p>
+                    You have worked out on {workoutDates.length} day(s) this month.
+                  </p>
+                </div>
                 <div className="bottom-box">Goals</div>
               </div>
             </div>
@@ -100,38 +132,16 @@ const HomePage = () => {
                 <div className="bottom-box">
                   <h2>Exercise List</h2>
                   <ul className="exercise-list">
-                    {[
-                      'Arnold Press',
-                      'Barbell Lunge',
-                      'Bench Press',
-                      'Biceps Curl',
-                      'Bulgarian Split Squat',
-                      'Chest Press',
-                      'Deadlift',
-                      'Dumbbell Chest Fly',
-                      'Dumbbell Curl',
-                      'Dumbbell Lateral Raise',
-                      'Dumbbell Row',
-                      'Goblet Squat',
-                      'Incline Dumbbell Press',
-                      'Leg Extension',
-                      'Leg Press',
-                      'Lunge',
-                      'Lying Triceps Extension',
-                      'Overhead Press',
-                      'Pull-down',
-                      'Pull-up',
-                      'Push-up',
-                      'Romanian Deadlift',
-                      'Squat',
-                    ].map((exercise, index) => (
-                      <li key={index}>
-                        <label>
-                          <input type="radio" name="exercise" value={exercise} />
-                          {exercise}
-                        </label>
-                      </li>
-                    ))}
+                    {['Arnold Press', 'Barbell Lunge', 'Bench Press', 'Biceps Curl', 'Squat'].map(
+                      (exercise, index) => (
+                        <li key={index}>
+                          <label>
+                            <input type="radio" name="exercise" value={exercise} />
+                            {exercise}
+                          </label>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
               </div>

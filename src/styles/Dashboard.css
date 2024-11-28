@@ -123,6 +123,38 @@ nav {
     flex-wrap: wrap;
     gap: 30px; /* Increased gap between boxes */
     justify-content: center; /* Center the boxes */
+    align-items: center;
+}
+
+.top-box-dashboard, 
+.bottom-box-dashboard {
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    border: 1px solid #007BFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    color: #333333;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.top-box-dashboard:hover,
+.bottom-box-dashboard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.top-box-dashboard {
+    width: 48%; 
+    height: 300px;
+    align-items: center;
+}
+
+.bottom-box-dashboard {
+    width: 95%; /* Full width for the bottom box */
+    height: 100px; /* Reduced height */
+    margin-top: 20px;
+    overflow: hidden;
 }
 
 /* Box Styles */
@@ -146,11 +178,11 @@ nav {
 
 .top-box {
     width: 48%; /* Wide boxes */
-    height: 150px; /* Reduced height */
+    height: 300px; /* Reduced height */
 }
 
 .bottom-box {
-    width: 100%; /* Full width for the bottom box */
+    width: 95%; /* Full width for the bottom box */
     height: 100px; /* Reduced height */
     margin-top: 20px;
     overflow: hidden;
@@ -209,3 +241,10 @@ select:focus {
     font-size: 16px;
     color: #333333;
 }
+
+.workout-day {
+    background-color: #007BFF !important;
+    color: white !important;
+    border-radius: 50%;
+  }
+  
