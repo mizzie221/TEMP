@@ -313,16 +313,17 @@ const HomePage = () => {
                     <strong>Current Weight:</strong> {currentUserWeight} kg
                   </p>
                   <div>
-                    <input
+                  <input
+                      className="goals-input"
                       type="number"
-                      placeholder="Update your weight e.g., 68"
+                      placeholder="Update your weight e.g., 6"
                       value={newWeightInput}
                       onChange={(e) => setNewWeightInput(e.target.value)}
-                    />
+                  />
                   </div>
-                  <div>
-                    <button onClick={handleCurrentWeightUpdate}>Log Current Weight</button>
-                    <button onClick={handleStartingWeightUpdate}>Update Starting Weight</button>
+                  <div className="goals-buttons">
+                    <button className="log-button" onClick={handleCurrentWeightUpdate}>Log Current Weight</button>
+                    <button  className="log-button" onClick={handleStartingWeightUpdate}>Update Starting Weight</button>
                   </div>
                 </div>
               </div>

@@ -66,7 +66,8 @@ nav {
 }
 
 .nav-link {
-    padding: 10px 20px;
+    padding: 10px 100px;
+    margin: -20px 12px;
     font-size: 16px;
     font-weight: 500;
     color: white;
@@ -347,4 +348,39 @@ textarea:focus {
     font-size: 16px;
     color: #2c3e50;
 }
-  
+
+.log-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: lightblue;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 0 3px; /* Space between buttons */
+    cursor: pointer;
+}
+
+.log-button:hover {
+    background-color: blue;
+    transform: scale(1.05);
+}
+
+.goals-input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    background-color: white;
+    color: #333333;
+    width: 200px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.goals-input:focus {
+    border-color: blue;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
