@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import Calendar from 'react-calendar'; // Import Calendar
-import 'react-calendar/dist/Calendar.css'; // Import Calendar styles
-import '../styles/Dashboard.css'; 
-import Home from './Home';
+import React, { useState } from "react";
+import Calendar from "react-calendar"; // Import Calendar
+import "react-calendar/dist/Calendar.css"; // Import Calendar styles
+import "../styles/Dashboard.css";
+import Home from "./Home";
 
 const HomePage = () => {
-  const [activeTab, setActiveTab] = useState('Dashboard');
+  const [activeTab, setActiveTab] = useState("Dashboard");
   const [isSignedOut, setIsSignedOut] = useState(false);
-  const [workoutDates, setWorkoutDates] = useState([]); // Track workout dates
-  const [selectedDate, setSelectedDate] = useState(new Date()); // Selected date on calendar
+  const [workoutDates, setWorkoutDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [startingWeight, setStartingWeight] = useState(70); // Default starting weight
+  const [currentWeight, setCurrentWeight] = useState(70); // Current weight starts as the starting weight
+  const [newWeightInput, setNewWeightInput] = useState(""); // Input field for weight updates
 
   const signOut = () => {
     setIsSignedOut(true);
@@ -24,6 +27,21 @@ const HomePage = () => {
       setWorkoutDates([...workoutDates, dateString]);
     } else {
       setWorkoutDates(workoutDates.filter((d) => d !== dateString));
+    }
+  };
+
+  const handleStartingWeightUpdate = () => {
+    if (newWeightInput) {
+      setStartingWeight(Number(newWeightInput));
+      setCurrentWeight(Number(newWeightInput)); // Sync current weight with new starting weight
+      setNewWeightInput(""); // Clear input field
+    }
+  };
+
+  const handleCurrentWeightUpdate = () => {
+    if (newWeightInput) {
+      setCurrentWeight(Number(newWeightInput));
+      setNewWeightInput(""); // Clear input field
     }
   };
 
@@ -44,24 +62,24 @@ const HomePage = () => {
           <ul className="nav-links">
             <li>
               <button
-                className={`nav-link ${activeTab === 'Dashboard' ? 'active' : ''}`}
-                onClick={() => handleTabClick('Dashboard')}
+                className={`nav-link ${activeTab === "Dashboard" ? "active" : ""}`}
+                onClick={() => handleTabClick("Dashboard")}
               >
                 Dashboard
               </button>
             </li>
             <li>
               <button
-                className={`nav-link ${activeTab === 'Weight Training' ? 'active' : ''}`}
-                onClick={() => handleTabClick('Weight Training')}
+                className={`nav-link ${activeTab === "Weight Training" ? "active" : ""}`}
+                onClick={() => handleTabClick("Weight Training")}
               >
                 Weight Training
               </button>
             </li>
             <li>
               <button
-                className={`nav-link ${activeTab === 'Cardio' ? 'active' : ''}`}
-                onClick={() => handleTabClick('Cardio')}
+                className={`nav-link ${activeTab === "Cardio" ? "active" : ""}`}
+                onClick={() => handleTabClick("Cardio")}
               >
                 Cardio
               </button>
@@ -72,35 +90,58 @@ const HomePage = () => {
 
       {/* Tab Content */}
       <div className="content">
-        {activeTab === 'Dashboard' && (
+        {activeTab === "Dashboard" && (
           <div className="tab-content active" id="Dashboard">
             <div className="background-box">
               <h1>Dashboard</h1>
               <div className="dashboard-boxes">
-              <div className="top-box">
-                <h2>Check-In Calendar</h2>
-                <div className="calendar-wrapper">
-                  <Calendar
-                    onClickDay={handleDateClick}
-                    value={selectedDate}
-                    tileClassName={({ date }) =>
-                      workoutDates.includes(date.toDateString()) ? 'workout-day' : null
-                    }
-                  />
-                </div>
-                <p>
-                  {workoutDates.includes(selectedDate.toDateString())
-                    ? 'You worked out on this day!'
-                    : 'You did not check in for this day.'}
-                </p>
+                <div className="top-box">
+                  <h2>Check-In Calendar</h2>
+                  <div className="calendar-wrapper">
+                    <Calendar
+                      onClickDay={handleDateClick}
+                      value={selectedDate}
+                      tileClassName={({ date }) =>
+                        workoutDates.includes(date.toDateString()) ? "workout-day" : null
+                      }
+                    />
+                  </div>
+                  <p>
+                    {workoutDates.includes(selectedDate.toDateString())
+                      ? "You worked out on this day!"
+                      : "You did not check in for this day."}
+                  </p>
                 </div>
                 <div className="middle-box">
                   <h2>Progress</h2>
-                  <p>
-                    You have worked out for {workoutDates.length} day(s) this month.
-                  </p>
+                  <p>You have worked out for {workoutDates.length} day(s) this month.</p>
                 </div>
-                <div className="bottom-box">Goals</div>
+                <div className="bottom-box">
+                  <h2>Goals</h2>
+                  <p className="goals-starting-weight">
+                    <strong>Starting Weight:</strong> {startingWeight} kg
+                  </p>
+                  <p className="goals-current-weight">
+                    <strong>Current Weight:</strong> {currentWeight} kg
+                  </p>
+                  <div>
+                    <input
+                      className="goals-input"
+                      type="number"
+                      placeholder="Update your weight e.g., 68"
+                      value={newWeightInput}
+                      onChange={(e) => setNewWeightInput(e.target.value)}
+                    />
+                  </div>
+                  <div className="goals-buttons">
+                    <button className="goals-button" onClick={handleCurrentWeightUpdate}>
+                      Log Current Weight
+                    </button>
+                    <button className="goals-button" onClick={handleStartingWeightUpdate}>
+                      Update Starting Weight
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -130,7 +171,7 @@ const HomePage = () => {
                     ))}
                   </select>
                 </div>
-                <div className="top-box">Example Content Here</div>
+                <div className="top-box">Today's Workout</div>
                 <div className="bottom-box">
                   <h2>Exercise List</h2>
                   <ul className="exercise-list">

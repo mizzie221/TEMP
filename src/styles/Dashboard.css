@@ -157,11 +157,53 @@ nav {
 }
 
 .bottom-box {
-    width: 95%; /* Full width for the bottom box */
-    height: 100px; /* Reduced height */
+    width: 95%; /* Adjust width */
+    height: auto; /* Dynamic height */
     margin-top: 20px;
+    padding: 20px;
+    text-align: center;
     overflow: hidden;
 }
+  
+.goals-starting-weight,
+.goals-current-weight {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.goals-input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 250px;
+    max-width: 100%;
+}
+
+.goals-buttons {
+    margin-top: 15px;
+}
+
+.goals-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: lightblue;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.goals-button:hover {
+    background-color: blue;
+    color: white;
+    transform: scale(1.05);
+}
+  
+
 
 /* Forms and Dropdowns */
 label {
