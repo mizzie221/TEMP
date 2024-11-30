@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Calendar from "react-calendar"; // Import Calendar
-import "react-calendar/dist/Calendar.css"; // Import Calendar styles
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import "../styles/Dashboard.css";
 import Home from "./Home";
 
@@ -9,9 +9,16 @@ const HomePage = () => {
   const [isSignedOut, setIsSignedOut] = useState(false);
   const [workoutDates, setWorkoutDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [startingWeight, setStartingWeight] = useState(70); // Default starting weight
-  const [currentWeight, setCurrentWeight] = useState(70); // Current weight starts as the starting weight
-  const [newWeightInput, setNewWeightInput] = useState(""); // Input field for weight updates
+  const [startingWeight, setStartingWeight] = useState(70);
+  const [currentUserWeight, setCurrentUserWeight] = useState(70);
+  const [newWeightInput, setNewWeightInput] = useState("");
+  const [workoutInProgress, setWorkoutInProgress] = useState(false);
+  const [workoutStartTime, setWorkoutStartTime] = useState(new Date());
+  const [exercises, setExercises] = useState([]);
+  const [currentExercise, setCurrentExercise] = useState("");
+  const [notes, setNotes] = useState("");
+  const [workoutHistory, setWorkoutHistory] = useState([]);
+  const [isEditingWorkout, setIsEditingWorkout] = useState(null); // Track if editing a workout
 
   const signOut = () => {
     setIsSignedOut(true);
@@ -33,16 +40,107 @@ const HomePage = () => {
   const handleStartingWeightUpdate = () => {
     if (newWeightInput) {
       setStartingWeight(Number(newWeightInput));
-      setCurrentWeight(Number(newWeightInput)); // Sync current weight with new starting weight
-      setNewWeightInput(""); // Clear input field
+      setCurrentUserWeight(Number(newWeightInput));
+      setNewWeightInput("");
     }
   };
 
   const handleCurrentWeightUpdate = () => {
     if (newWeightInput) {
-      setCurrentWeight(Number(newWeightInput));
-      setNewWeightInput(""); // Clear input field
+      setCurrentUserWeight(Number(newWeightInput));
+      setNewWeightInput("");
     }
+  };
+
+  const handleStartWorkout = () => {
+    setWorkoutInProgress(true);
+    setWorkoutStartTime(new Date());
+    setExercises([]);
+    setNotes("");
+  };
+
+  const handleCancelWorkout = () => {
+    if (window.confirm("Are you sure you want to cancel this workout? All progress will be lost.")) {
+      setWorkoutInProgress(false);
+      setExercises([]);
+      setWorkoutStartTime(new Date());
+      setNotes("");
+    }
+  };
+
+  const handleFinishWorkout = () => {
+    const completedWorkout = {
+      time: workoutStartTime,
+      exercises,
+      notes,
+    };
+    setWorkoutHistory([...workoutHistory, completedWorkout]);
+    alert("Workout completed!");
+    setWorkoutInProgress(false);
+    setExercises([]);
+    setWorkoutStartTime(new Date());
+    setNotes("");
+  };
+
+  const handleAddExercise = () => {
+    if (!currentExercise.trim()) {
+      alert("Please enter an exercise name.");
+      return;
+    }
+    setExercises([
+      ...exercises,
+      {
+        name: currentExercise.trim(),
+        sets: [],
+      },
+    ]);
+    setCurrentExercise("");
+  };
+
+  const handleAddSet = (exerciseIndex) => {
+    const updatedExercises = [...exercises];
+    updatedExercises[exerciseIndex].sets.push({ weight: "", reps: "" });
+    setExercises(updatedExercises);
+  };
+
+  const handleDeleteSet = (exerciseIndex, setIndex) => {
+    const updatedExercises = [...exercises];
+    updatedExercises[exerciseIndex].sets.splice(setIndex, 1);
+    setExercises(updatedExercises);
+  };
+
+  const handleUpdateSet = (exerciseIndex, setIndex, field, value) => {
+    const updatedExercises = [...exercises];
+    updatedExercises[exerciseIndex].sets[setIndex][field] = value;
+    setExercises(updatedExercises);
+  };
+
+  const handleEditWorkout = (index) => {
+    const workoutToEdit = workoutHistory[index];
+    setWorkoutInProgress(true);
+    setWorkoutStartTime(workoutToEdit.time);
+    setExercises(workoutToEdit.exercises);
+    setNotes(workoutToEdit.notes);
+    setIsEditingWorkout(index); // Set editing index
+  };
+
+  const handleSaveEditedWorkout = () => {
+    const updatedHistory = [...workoutHistory];
+    updatedHistory[isEditingWorkout] = {
+      time: workoutStartTime,
+      exercises,
+      notes,
+    };
+    setWorkoutHistory(updatedHistory);
+    setIsEditingWorkout(null); // Clear editing index
+    setWorkoutInProgress(false);
+    alert("Workout updated successfully!");
+  };
+
+  const handleEditWorkoutTime = (index, newTime) => {
+    const updatedHistory = [...workoutHistory];
+    updatedHistory[index].time = new Date(newTime);
+    setWorkoutHistory(updatedHistory);
   };
 
   if (isSignedOut) {
@@ -51,14 +149,12 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* Header Section */}
       <header className="home-header">
         <h1 className="main-title">Fitness Tracker</h1>
         <nav>
           <button className="signout" onClick={signOut}>
             Sign Out
           </button>
-
           <ul className="nav-links">
             <li>
               <button
@@ -88,7 +184,6 @@ const HomePage = () => {
         </nav>
       </header>
 
-      {/* Tab Content */}
       <div className="content">
         {activeTab === "Dashboard" && (
           <div className="tab-content active" id="Dashboard">
@@ -118,28 +213,23 @@ const HomePage = () => {
                 </div>
                 <div className="bottom-box">
                   <h2>Goals</h2>
-                  <p className="goals-starting-weight">
+                  <p>
                     <strong>Starting Weight:</strong> {startingWeight} kg
                   </p>
-                  <p className="goals-current-weight">
-                    <strong>Current Weight:</strong> {currentWeight} kg
+                  <p>
+                    <strong>Current Weight:</strong> {currentUserWeight} kg
                   </p>
                   <div>
                     <input
-                      className="goals-input"
                       type="number"
                       placeholder="Update your weight e.g., 68"
                       value={newWeightInput}
                       onChange={(e) => setNewWeightInput(e.target.value)}
                     />
                   </div>
-                  <div className="goals-buttons">
-                    <button className="goals-button" onClick={handleCurrentWeightUpdate}>
-                      Log Current Weight
-                    </button>
-                    <button className="goals-button" onClick={handleStartingWeightUpdate}>
-                      Update Starting Weight
-                    </button>
+                  <div>
+                    <button onClick={handleCurrentWeightUpdate}>Log Current Weight</button>
+                    <button onClick={handleStartingWeightUpdate}>Update Starting Weight</button>
                   </div>
                 </div>
               </div>
@@ -147,60 +237,97 @@ const HomePage = () => {
           </div>
         )}
 
-        {activeTab === 'Weight Training' && (
-          <div className="tab-content active" id="Weight Training">
+        {activeTab === "Weight Training" && (
+          <div className="tab-content active weight-training">
             <div className="background-box">
-              <h1>Weight Training</h1>
-              <div className="dashboard-boxes">
-                <div className="top-box">
-                  <h2>Choose Sets and Reps</h2>
-                  <label htmlFor="sets">Number of Sets:</label>
-                  <select id="sets" name="sets">
-                    {[...Array(6).keys()].map((num) => (
-                      <option key={num} value={num + 1}>
-                        {num + 1}
-                      </option>
-                    ))}
-                  </select>
-                  <label htmlFor="reps">Number of Reps:</label>
-                  <select id="reps" name="reps">
-                    {[...Array(20).keys()].map((num) => (
-                      <option key={num} value={num + 1}>
-                        {num + 1}
-                      </option>
-                    ))}
-                  </select>
+              <h1 className="section-title">Weight Training</h1>
+              {!workoutInProgress ? (
+                <button className="modern-button start-workout-button" onClick={handleStartWorkout}>
+                Start Workout
+              </button>
+              ) : (
+                <>
+                  <div className="workout-details">
+                    <p>
+                      <strong>Started at:</strong> {workoutStartTime.toLocaleString()}
+                    </p>
+                    <input
+                      type="text"
+                      placeholder="Exercise Name (e.g., Deadlift)"
+                      value={currentExercise}
+                      onChange={(e) => setCurrentExercise(e.target.value)}
+                      className="modern-input"
+                    />
+                    <button className="add-exercise-button modern-button" onClick={handleAddExercise}>
+                      Add Exercise
+                    </button>
+                  </div>
+                  {exercises.map((exercise, index) => (
+                    <div key={index}>
+                      <h3>{exercise.name}</h3>
+                      {exercise.sets.map((set, setIndex) => (
+                        <div key={setIndex}>
+                          <input
+                            type="number"
+                            placeholder="Weight (kg)"
+                            value={set.weight}
+                            onChange={(e) =>
+                              handleUpdateSet(index, setIndex, "weight", e.target.value)
+                            }
+                          />
+                          <input
+                            type="number"
+                            placeholder="Reps"
+                            value={set.reps}
+                            onChange={(e) =>
+                              handleUpdateSet(index, setIndex, "reps", e.target.value)
+                            }
+                          />
+                          <button onClick={() => handleDeleteSet(index, setIndex)}>Delete</button>
+                        </div>
+                      ))}
+                      <button onClick={() => handleAddSet(index)}>Add Set</button>
+                    </div>
+                  ))}
+                  <textarea
+                    placeholder="Notes"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                  ></textarea>
+                  {isEditingWorkout !== null ? (
+                    <button onClick={handleSaveEditedWorkout}>Save Changes</button>
+                  ) : (
+                    <button onClick={handleFinishWorkout}>Finish Workout</button>
+                  )}
+                  <button onClick={handleCancelWorkout}>Cancel Workout</button>
+                </>
+              )}
+              {workoutHistory.map((workout, index) => (
+                <div key={index}>
+                  <p>
+                    Workout at:{" "}
+                    <input
+                      type="datetime-local"
+                      value={new Date(workout.time).toISOString().slice(0, 16)}
+                      onChange={(e) =>
+                        handleEditWorkoutTime(index, new Date(e.target.value))
+                      }
+                    />
+                  </p>
+                  {workout.exercises.map((exercise, exerciseIndex) => (
+                    <div key={exerciseIndex}>
+                      <strong>{exercise.name}</strong>
+                      {exercise.sets.map((set, setIndex) => (
+                        <p key={setIndex}>
+                          {set.weight} kg x {set.reps} reps
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+                  <p>Notes: {workout.notes}</p>
+                  <button onClick={() => handleEditWorkout(index)}>Edit Workout</button>
                 </div>
-                <div className="top-box">Today's Workout</div>
-                <div className="bottom-box">
-                  <h2>Exercise List</h2>
-                  <ul className="exercise-list">
-                    {['Arnold Press', 'Barbell Lunge', 'Bench Press', 'Biceps Curl', 'Squat'].map(
-                      (exercise, index) => (
-                        <li key={index}>
-                          <label>
-                            <input type="radio" name="exercise" value={exercise} />
-                            {exercise}
-                          </label>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'Cardio' && (
-          <div className="tab-content active" id="Cardio">
-            <div className="background-box">
-              <h1>Cardio</h1>
-              <div className="dashboard-boxes">
-                <div className="top-box">Type of Cardio</div>
-                <div className="middle-box">Time Spent</div>
-                <div className="bottom-box">Distance Traveled</div>
-              </div>
+              ))}
             </div>
           </div>
         )}
