@@ -3,12 +3,12 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #E3F2FD;
-    text-align: center;
     color: #333333;
 }
 
+/* Header Styling */
 header {
-    padding: 10px;
+    padding: 20px; /* Increased padding */
     background-color: #007BFF;
     color: white;
     position: sticky;
@@ -19,6 +19,7 @@ header {
     flex-direction: column;
     align-items: center; /* Center items horizontally */
     justify-content: center; /* Center items vertically */
+    margin-bottom: 20px;
 }
 
 /* Main Title Styling */
@@ -40,92 +41,73 @@ nav ul {
 /* Navigation Styles */
 nav {
     display: flex;
-    justify-content: space-between; 
-    align-items: center;          
-    margin: 0 20px;               
-    position: relative;
+    justify-content: center; /* Center navigation buttons */
+    gap: 15px;
 }
 
 .signout {
-    position: absolute; /* Place it independently */
-    top: 0px;
-    right: 20px; /* Move it to the far right */
+    position: absolute;
+    top: 15px; /* Added spacing to avoid overlap */
+    right: 20px;
     background-color: lightblue;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
-    margin-top: -50px;
-    width: 410px;
+    width: 150px;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-  }
-  
+}
+
 .signout:hover {
     background-color: blue;
     transform: scale(1.1);
 }
-  
-  /* Shared Buttons (Dashboard, Weight Training, Cardio) */
+
 .nav-link {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    padding: 10px 20px;
+    font-size: 16px;
     font-weight: 500;
     color: white;
     background-color: lightblue;
     border: none;
     border-radius: 10px;
     text-decoration: none;
-    white-space: nowrap;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: none;
-    outline: none;
-    margin-right: 15px; /* Evenly spaced */
-    }
-  
+}
+
 .nav-link:hover {
     background-color: blue;
     transform: scale(1.05);
 }
-  
-.nav-links {
-    display: flex;
-    justify-content: center;
-    gap: 15px; /* Space between the buttons */
-    margin-top: 7px;
-}
 
-/* Dashboard Section */
+/* Content Section */
 .content {
     padding: 20px;
+    margin-top: 10px; 
 }
 
+/* Background Box */
 .background-box {
     background-color: white;
     border-radius: 20px;
     padding: 30px;
     margin: 20px auto;
-    width: 1000px; /* Make dashboard box wider */
-    max-width: 1600px; /* Large maximum width */
+    width: 1000px;
+    max-width: 90%;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
 }
 
-/* Tab Content Styles */
-.tab-content.active {
-    display: block;
-}
-
+/* Dashboard Boxes */
 .dashboard-boxes {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px; /* Increased gap between boxes */
-    justify-content: center; /* Center the boxes */
-    align-items: center;
+    gap: 30px;
+    justify-content: center;
 }
 
-/* Box Styles */
+/* Individual Boxes */
 .top-box,
 .middle-box,
 .bottom-box {
@@ -147,24 +129,32 @@ nav {
 }
 
 .top-box {
-    width: 40%; /* Wide boxes */
-    height: 400px; /* Reduced height */
+    width: 48%;
+    height: auto; /* Adjust height dynamically */
 }
 
 .middle-box {
     width: 48%;
-    height: 100px;
+    height: auto; /* Adjust height dynamically */
 }
 
 .bottom-box {
-    width: 95%; /* Adjust width */
-    height: auto; /* Dynamic height */
-    margin-top: 20px;
+    width: 95%; 
+    margin: 0 auto 20px auto; 
     padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
     text-align: center;
-    overflow: hidden;
+    border: 1px solid #007BFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
-  
+
+/* Goals Section Styling */
+.bottom-box h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
 .goals-starting-weight,
 .goals-current-weight {
     margin-bottom: 10px;
@@ -178,12 +168,15 @@ nav {
     border: 1px solid #007BFF;
     border-radius: 5px;
     margin-right: 10px;
-    width: 250px;
+    width: 200px;
     max-width: 100%;
 }
 
 .goals-buttons {
     margin-top: 15px;
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    justify-content: center; /* Center align buttons */
 }
 
 .goals-button {
@@ -192,7 +185,6 @@ nav {
     background-color: lightblue;
     border: none;
     border-radius: 5px;
-    margin-right: 10px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
@@ -202,72 +194,157 @@ nav {
     color: white;
     transform: scale(1.05);
 }
-  
 
-
-/* Forms and Dropdowns */
-label {
-    font-size: 14px;
-    color: #333333;
-}
-
-select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #007BFF;
-    border-radius: 5px;
-    background-color: white;
-    color: #333333;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-select:focus {
-    border-color: #FF6F61;
-}
-
-/* Exercise List */
-.exercise-list {
-    list-style: none;
-    padding: 10px;
-    margin: 0;
-    max-height: 400px;
-    overflow-y: auto;
-    border: 1px solid #007BFF;
-    background-color: #E3F2FD;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.exercise-list li {
-    padding: 10px;
-    border-bottom: 1px solid #007BFF;
+/* Calendar Wrapper */
+.calendar-wrapper {
     display: flex;
-    justify-content: space-between;
-}
-
-.exercise-list li:last-child {
-    border-bottom: none;
-}
-
-.exercise-list li:hover {
-    background-color: #d1e9fc;
-}
-
-.exercise-list label {
-    font-size: 16px;
-    color: #333333;
+    justify-content: center; /* Center calendar */
+    margin-top: 15px;
 }
 
 .workout-day {
     background-color: #007BFF !important;
     color: white !important;
     border-radius: 50%;
-    margin-left: 20px;
+}
+
+/* General Layout */
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   }
   
-.calendar-wrapper {
-    display: flex;
-    justify-content: flex-start; 
-    margin-left: 23px; 
+  /* Section Title */
+.section-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
 }
+  
+  /* Modern Buttons */
+button.modern-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+button.modern-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+  
+  /* Button Variants */
+button.start-workout-button {
+    background-color: #2980b9;
+}
+  
+button.start-workout-button:hover {
+    background-color: #21618c;
+}
+  
+button.finish-button {
+    background-color: #27ae60;
+}
+  
+button.finish-button:hover {
+    background-color: #1e8449;
+}
+  
+button.cancel-button {
+    background-color: #e74c3c;
+}
+  
+button.cancel-button:hover {
+    background-color: #c0392b;
+}
+  
+button.add-exercise-button {
+    background-color: lightblue;
+    margin-left: 20px;
+}
+  
+button.add-exercise-button:hover {
+    background-color: #2874a6;
+}
+  
+button.delete-set-button {
+    background-color: #f39c12;
+}
+  
+button.delete-set-button:hover {
+    background-color: #e67e22;
+}
+  
+  /* Input Fields */
+.modern-input,
+textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+  
+.modern-input:focus,
+textarea:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+    outline: none;
+  }
+  
+  /* Exercise Item Styling */
+.exercise-item {
+    width: 100%;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+  
+.exercise-item h3 {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+  
+  /* Notes Section */
+.notes-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+  
+  /* Workout History */
+.workout-history-item {
+    margin: 20px 0;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+  
+.workout-history-item p {
+    font-size: 16px;
+    color: #2c3e50;
+}
+  
