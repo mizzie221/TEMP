@@ -48,7 +48,7 @@ nav {
 
 .signout {
     position: absolute; /* Place it independently */
-    top: 10px;
+    top: 0px;
     right: 20px; /* Move it to the far right */
     background-color: lightblue;
     color: white;
@@ -89,12 +89,11 @@ nav {
     transform: scale(1.05);
 }
   
-/* Align Navigation Links */
 .nav-links {
     display: flex;
     justify-content: center;
     gap: 15px; /* Space between the buttons */
-    margin-top: 20px;
+    margin-top: 7px;
 }
 
 /* Dashboard Section */
@@ -126,39 +125,9 @@ nav {
     align-items: center;
 }
 
-.top-box-dashboard, 
-.bottom-box-dashboard {
-    border-radius: 15px;
-    background-color: #FFFFFF;
-    border: 1px solid #007BFF;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    padding: 20px;
-    text-align: center;
-    color: #333333;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.top-box-dashboard:hover,
-.bottom-box-dashboard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.top-box-dashboard {
-    width: 48%; 
-    height: 300px;
-    align-items: center;
-}
-
-.bottom-box-dashboard {
-    width: 95%; /* Full width for the bottom box */
-    height: 100px; /* Reduced height */
-    margin-top: 20px;
-    overflow: hidden;
-}
-
 /* Box Styles */
 .top-box,
+.middle-box,
 .bottom-box {
     border-radius: 15px;
     background-color: #FFFFFF;
@@ -171,14 +140,20 @@ nav {
 }
 
 .top-box:hover,
+.middle-box:hover,
 .bottom-box:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .top-box {
-    width: 48%; /* Wide boxes */
-    height: 300px; /* Reduced height */
+    width: 40%; /* Wide boxes */
+    height: 400px; /* Reduced height */
+}
+
+.middle-box {
+    width: 48%;
+    height: 100px;
 }
 
 .bottom-box {
@@ -246,5 +221,11 @@ select:focus {
     background-color: #007BFF !important;
     color: white !important;
     border-radius: 50%;
+    margin-left: 20px;
   }
   
+.calendar-wrapper {
+    display: flex;
+    justify-content: flex-start; 
+    margin-left: 23px; 
+}

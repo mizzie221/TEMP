@@ -77,8 +77,9 @@ const HomePage = () => {
             <div className="background-box">
               <h1>Dashboard</h1>
               <div className="dashboard-boxes">
-                <div className="top-box">
-                  <h2>Check-In Calendar</h2>
+              <div className="top-box">
+                <h2>Check-In Calendar</h2>
+                <div className="calendar-wrapper">
                   <Calendar
                     onClickDay={handleDateClick}
                     value={selectedDate}
@@ -86,16 +87,17 @@ const HomePage = () => {
                       workoutDates.includes(date.toDateString()) ? 'workout-day' : null
                     }
                   />
-                  <p>
-                    {workoutDates.includes(selectedDate.toDateString())
-                      ? 'You worked out on this day!'
-                      : 'You did not check in for this day.'}
-                  </p>
                 </div>
-                <div className="top-box">
+                <p>
+                  {workoutDates.includes(selectedDate.toDateString())
+                    ? 'You worked out on this day!'
+                    : 'You did not check in for this day.'}
+                </p>
+                </div>
+                <div className="middle-box">
                   <h2>Progress</h2>
                   <p>
-                    You have worked out on {workoutDates.length} day(s) this month.
+                    You have worked out for {workoutDates.length} day(s) this month.
                   </p>
                 </div>
                 <div className="bottom-box">Goals</div>
@@ -155,7 +157,7 @@ const HomePage = () => {
               <h1>Cardio</h1>
               <div className="dashboard-boxes">
                 <div className="top-box">Type of Cardio</div>
-                <div className="top-box">Time Spent</div>
+                <div className="middle-box">Time Spent</div>
                 <div className="bottom-box">Distance Traveled</div>
               </div>
             </div>
