@@ -336,9 +336,12 @@ const HomePage = () => {
             <div className="background-box">
               <h1 className="section-title">Weight Training</h1>
               {!workoutInProgress ? (
-                <button className="modern-button start-workout-button" onClick={handleStartWorkout}>
-                Start Workout
-              </button>
+                <button
+                  className="modern-button start-workout-button"
+                  onClick={handleStartWorkout}
+                >
+                  Start Workout
+                </button>
               ) : (
                 <>
                   <div className="workout-details">
@@ -352,7 +355,10 @@ const HomePage = () => {
                       onChange={(e) => setCurrentExercise(e.target.value)}
                       className="modern-input"
                     />
-                    <button className="add-exercise-button modern-button" onClick={handleAddExercise}>
+                    <button
+                      className="add-exercise-button modern-button"
+                      onClick={handleAddExercise}
+                    >
                       Add Exercise
                     </button>
                   </div>
@@ -360,7 +366,7 @@ const HomePage = () => {
                     <div key={index}>
                       <h3>{exercise.name}</h3>
                       {exercise.sets.map((set, setIndex) => (
-                        <div key={setIndex}>
+                        <div key={setIndex} className="exercise-item">
                           <input
                             type="number"
                             placeholder="Weight (kg)"
@@ -368,6 +374,7 @@ const HomePage = () => {
                             onChange={(e) =>
                               handleUpdateSet(index, setIndex, "weight", e.target.value)
                             }
+                            className="modern-input"
                           />
                           <input
                             type="number"
@@ -376,52 +383,89 @@ const HomePage = () => {
                             onChange={(e) =>
                               handleUpdateSet(index, setIndex, "reps", e.target.value)
                             }
+                            className="modern-input"
                           />
-                          <button onClick={() => handleDeleteSet(index, setIndex)}>Delete</button>
+                          <button
+                            className="delete-set-button modern-button"
+                            onClick={() => handleDeleteSet(index, setIndex)}
+                          >
+                            Delete
+                          </button>
                         </div>
                       ))}
-                      <button onClick={() => handleAddSet(index)}>Add Set</button>
+                      <button
+                        className="add-exercise-button modern-button"
+                        onClick={() => handleAddSet(index)}
+                      >
+                        Add Set
+                      </button>
                     </div>
                   ))}
                   <textarea
                     placeholder="Notes"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
+                    className="modern-input"
                   ></textarea>
-                  {isEditingWorkout !== null ? (
-                    <button onClick={handleSaveEditedWorkout}>Save Changes</button>
-                  ) : (
-                    <button onClick={handleFinishWorkout}>Finish Workout</button>
-                  )}
-                  <button onClick={handleCancelWorkout}>Cancel Workout</button>
+                  <div className="workout-buttons">
+                    {isEditingWorkout !== null ? (
+                      <button
+                        className="log-button save-button"
+                        onClick={handleSaveEditedWorkout}
+                      >
+                        Save Changes
+                      </button>
+                    ) : (
+                      <button
+                        className="log-button finish-button"
+                        onClick={handleFinishWorkout}
+                      >
+                        Finish Workout
+                      </button>
+                    )}
+                    <button
+                      className="log-button cancel-button"
+                      onClick={handleCancelWorkout}
+                    >
+                      Cancel Workout
+                    </button>
+                  </div>
                 </>
               )}
-              {workoutHistory.map((workout, index) => (
-                <div key={index}>
-                  <p>
-                    Workout at:{" "}
-                    <input
-                      type="datetime-local"
-                      value={new Date(workout.time).toISOString().slice(0, 16)}
-                      onChange={(e) =>
-                        handleEditWorkoutTime(index, new Date(e.target.value))
-                      }
-                    />
-                  </p>
-                  {workout.exercises.map((exercise, exerciseIndex) => (
-                    <div key={exerciseIndex}>
-                      <strong>{exercise.name}</strong>
-                      {exercise.sets.map((set, setIndex) => (
-                        <p key={setIndex}>
-                          {set.weight} kg x {set.reps} reps
-                        </p>
-                      ))}
-                    </div>
-                  ))}
-                  <p>Notes: {workout.notes}</p>
-                  <button onClick={() => handleEditWorkout(index)}>Edit Workout</button>
-                </div>
-              ))}
+              <div className="workout-history">
+                {workoutHistory.map((workout, index) => (
+                  <div key={index} className="workout-history-item">
+                    <p>
+                      Workout at:{" "}
+                      <input
+                        type="datetime-local"
+                        value={new Date(workout.time).toISOString().slice(0, 16)}
+                        onChange={(e) =>
+                          handleEditWorkoutTime(index, new Date(e.target.value))
+                        }
+                        className="modern-input"
+                      />
+                    </p>
+                    {workout.exercises.map((exercise, exerciseIndex) => (
+                      <div key={exerciseIndex}>
+                        <strong>{exercise.name}</strong>
+                        {exercise.sets.map((set, setIndex) => (
+                          <p key={setIndex}>
+                            {set.weight} kg x {set.reps} reps
+                          </p>
+                        ))}
+                      </div>
+                    ))}
+                    <p>Notes: {workout.notes}</p>
+                    <button
+                      className="log-button edit-button"
+                      onClick={() => handleEditWorkout(index)}
+                    >
+                      Edit Workout
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

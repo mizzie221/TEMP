@@ -258,24 +258,25 @@ button.start-workout-button:hover {
 }
   
 button.finish-button {
-    background-color: #27ae60;
+    background-color: lightblue;
 }
   
 button.finish-button:hover {
-    background-color: #1e8449;
+    background-color: blue;
 }
   
 button.cancel-button {
-    background-color: #e74c3c;
+    background-color: lightblue;
 }
   
 button.cancel-button:hover {
-    background-color: #c0392b;
+    background-color: blue;
 }
   
 button.add-exercise-button {
     background-color: lightblue;
     margin-left: 20px;
+    margin-top: -10px;
 }
   
 button.add-exercise-button:hover {
@@ -283,11 +284,12 @@ button.add-exercise-button:hover {
 }
   
 button.delete-set-button {
-    background-color: #f39c12;
+    background-color: lightblue;
+    margin-left: 10px;
 }
   
 button.delete-set-button:hover {
-    background-color: #e67e22;
+    background-color: blue;
 }
   
   /* Input Fields */
