@@ -7,9 +7,9 @@ function Home() {
     <div className="home-container">
       {/* Header Section */}
       <header className="home-header">
-        <div className="logo">FitnessTracker</div>
+        <div className="home-logo">FitnessTracker</div>
         <nav className="nav-links">
-          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/login" className="nav-button">Login</Link>
           <Link to="/signup" className="nav-button">Sign Up</Link>
         </nav>
       </header>

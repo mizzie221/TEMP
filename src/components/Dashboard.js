@@ -475,7 +475,10 @@ const HomePage = () => {
             <div className="background-box">
               <h1 className="section-title">Cardio</h1>
               {!workoutInProgress ? (
-                <button className="modern-button start-workout-button" onClick={handleStartCardioWorkout}>
+                <button
+                  className="modern-button start-workout-button"
+                  onClick={handleStartCardioWorkout}
+                >
                   Start Workout
                 </button>
               ) : (
@@ -499,10 +502,10 @@ const HomePage = () => {
                     </button>
                   </div>
                   {cardioExercises.map((exercise, index) => (
-                    <div key={index}>
+                    <div key={index} className="exercise-item">
                       <h3>{exercise.name}</h3>
                       {exercise.sets.map((set, setIndex) => (
-                        <div key={setIndex}>
+                        <div key={setIndex} className="set-inputs">
                           <input
                             type="number"
                             placeholder="Time (min)"
@@ -510,6 +513,7 @@ const HomePage = () => {
                             onChange={(e) =>
                               handleUpdateCardioSet(index, setIndex, "time", e.target.value)
                             }
+                            className="modern-input"
                           />
                           <input
                             type="number"
@@ -518,32 +522,52 @@ const HomePage = () => {
                             onChange={(e) =>
                               handleUpdateCardioSet(index, setIndex, "distance", e.target.value)
                             }
+                            className="modern-input"
                           />
-                          <button onClick={() => handleDeleteCardioSet(index, setIndex)}>Delete</button>
+                          <button
+                            className="modern-button delete-set-button"
+                            onClick={() => handleDeleteCardioSet(index, setIndex)}
+                          >
+                            Delete
+                          </button>
                         </div>
                       ))}
-                      <button onClick={() => handleAddCardioSet(index)}>Add Cardio</button>
+                      <button
+                        className="add-exercise-button modern-button"
+                        onClick={() => handleAddCardioSet(index)}
+                      >
+                        Add Cardio Set
+                      </button>
                     </div>
                   ))}
                   <textarea
                     placeholder="Notes"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
+                    className="modern-input notes-input"
                   ></textarea>
-                  <button
-                    onClick={() =>
-                      isEditingWorkout !== null
-                        ? handleSaveEditedCardioWorkout()
-                        : handleFinishCardioWorkout()
-                    }
-                  >
-                    {isEditingWorkout !== null ? "Save Changes" : "Finish Workout"}
-                  </button>
-                  <button onClick={handleCancelCardioWorkout}>Cancel Workout</button>
+                  <div className="workout-actions">
+                    <button
+                      className="log-button save-button"
+                      onClick={() =>
+                        isEditingWorkout !== null
+                          ? handleSaveEditedCardioWorkout()
+                          : handleFinishCardioWorkout()
+                      }
+                    >
+                      {isEditingWorkout !== null ? "Save Changes" : "Finish Workout"}
+                    </button>
+                    <button
+                      className="log-button cancel-button"
+                      onClick={handleCancelCardioWorkout}
+                    >
+                      Cancel Workout
+                    </button>
+                  </div>
                 </>
               )}
               {cardioHistory.map((workout, index) => (
-                <div key={index}>
+                <div key={index} className="workout-history-item">
                   <p>
                     Workout at:{" "}
                     <input
@@ -552,10 +576,11 @@ const HomePage = () => {
                       onChange={(e) =>
                         handleEditCardioWorkoutTime(index, new Date(e.target.value))
                       }
+                      className="modern-input"
                     />
                   </p>
                   {workout.exercises.map((exercise, exerciseIndex) => (
-                    <div key={exerciseIndex}>
+                    <div key={exerciseIndex} className="exercise-history">
                       <strong>{exercise.name}</strong>
                       {exercise.sets.map((set, setIndex) => (
                         <p key={setIndex}>
@@ -564,13 +589,21 @@ const HomePage = () => {
                       ))}
                     </div>
                   ))}
-                  <p>Notes: {workout.notes}</p>
-                  <button onClick={() => handleEditCardioWorkout(index)}>Edit Workout</button>
+                  <p>
+                    <strong>Notes:</strong> {workout.notes}
+                  </p>
+                  <button
+                    className="log-button edit-button"
+                    onClick={() => handleEditCardioWorkout(index)}
+                  >
+                    Edit Workout
+                  </button>
                 </div>
               ))}
             </div>
           </div>
         )}
+
       </div>
     </div>
   );

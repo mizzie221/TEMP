@@ -250,7 +250,9 @@ button.modern-button:hover {
   
   /* Button Variants */
 button.start-workout-button {
-    background-color: #2980b9;
+    background-color: lightblue;
+    margin-left: 225px;
+    width: 500px
 }
   
 button.start-workout-button:hover {
@@ -291,6 +293,7 @@ button.delete-set-button {
 button.delete-set-button:hover {
     background-color: blue;
 }
+
   
   /* Input Fields */
 .modern-input,
