@@ -18,6 +18,8 @@ const HomePage = () => {
   const [currentExercise, setCurrentExercise] = useState("");
   const [notes, setNotes] = useState("");
   const [workoutHistory, setWorkoutHistory] = useState([]);
+  const [cardioExercises, setCardioExercises] = useState([]);
+  const [cardioHistory, setCardioHistory] = useState([]);
   const [isEditingWorkout, setIsEditingWorkout] = useState(null); // Track if editing a workout
 
   const signOut = () => {
@@ -143,6 +145,97 @@ const HomePage = () => {
     setWorkoutHistory(updatedHistory);
   };
 
+  const handleStartCardioWorkout = () => {
+    setWorkoutInProgress(true);
+    setWorkoutStartTime(new Date());
+    setCardioExercises([]); // Reset cardio-specific exercises
+    setNotes("");
+  };
+
+  const handleCancelCardioWorkout = () => {
+    if (window.confirm("Are you sure you want to cancel this workout? All progress will be lost.")) {
+      setWorkoutInProgress(false);
+      setCardioExercises([]); // Reset cardio-specific exercises
+      setWorkoutStartTime(new Date());
+      setNotes("");
+    }
+  };
+
+  const handleFinishCardioWorkout = () => {
+    const completedWorkout = {
+      time: workoutStartTime,
+      exercises: cardioExercises,
+      notes,
+    };
+    setCardioHistory([...cardioHistory, completedWorkout]); // Save to cardio-specific history
+    alert("Cardio workout completed!");
+    setWorkoutInProgress(false);
+    setCardioExercises([]); // Clear cardio-specific exercises
+    setWorkoutStartTime(new Date());
+    setNotes("");
+  };
+
+  const handleAddCardioExercise = () => {
+    if (!currentExercise.trim()) {
+      alert("Please enter an exercise name.");
+      return;
+    }
+    setCardioExercises([
+      ...cardioExercises,
+      {
+        name: currentExercise.trim(),
+        sets: [],
+      },
+    ]);
+    setCurrentExercise("");
+  };
+
+  const handleAddCardioSet = (exerciseIndex) => {
+    const updatedExercises = [...cardioExercises];
+    updatedExercises[exerciseIndex].sets.push({ time: "", distance: "" });
+    setCardioExercises(updatedExercises);
+  };
+
+  const handleDeleteCardioSet = (exerciseIndex, setIndex) => {
+    const updatedExercises = [...cardioExercises];
+    updatedExercises[exerciseIndex].sets.splice(setIndex, 1);
+    setCardioExercises(updatedExercises);
+  };
+
+  const handleUpdateCardioSet = (exerciseIndex, setIndex, field, value) => {
+    const updatedExercises = [...cardioExercises];
+    updatedExercises[exerciseIndex].sets[setIndex][field] = value;
+    setCardioExercises(updatedExercises);
+  };  
+
+  const handleEditCardioWorkout = (index) => {
+    const workoutToEdit = cardioHistory[index];
+    setWorkoutInProgress(true);
+    setWorkoutStartTime(workoutToEdit.time);
+    setCardioExercises(workoutToEdit.exercises);
+    setNotes(workoutToEdit.notes);
+    setIsEditingWorkout(index); // Set editing index
+  };
+  
+  const handleSaveEditedCardioWorkout = () => {
+    const updatedHistory = [...cardioHistory];
+    updatedHistory[isEditingWorkout] = {
+      time: workoutStartTime,
+      exercises: cardioExercises,
+      notes,
+    };
+    setCardioHistory(updatedHistory);
+    setIsEditingWorkout(null); // Clear editing index
+    setWorkoutInProgress(false);
+    alert("Cardio workout updated successfully!");
+  };
+  
+  const handleEditCardioWorkoutTime = (index, newTime) => {
+    const updatedHistory = [...cardioHistory];
+    updatedHistory[index].time = new Date(newTime);
+    setCardioHistory(updatedHistory);
+  };  
+  
   if (isSignedOut) {
     return <Home />;
   }
@@ -326,6 +419,108 @@ const HomePage = () => {
                   ))}
                   <p>Notes: {workout.notes}</p>
                   <button onClick={() => handleEditWorkout(index)}>Edit Workout</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "Cardio" && (
+          <div className="tab-content active cardio">
+            <div className="background-box">
+              <h1 className="section-title">Cardio</h1>
+              {!workoutInProgress ? (
+                <button className="modern-button start-workout-button" onClick={handleStartCardioWorkout}>
+                  Start Workout
+                </button>
+              ) : (
+                <>
+                  <div className="workout-details">
+                    <p>
+                      <strong>Started at:</strong> {workoutStartTime.toLocaleString()}
+                    </p>
+                    <input
+                      type="text"
+                      placeholder="Exercise Name (e.g., Run, Bike Ride)"
+                      value={currentExercise}
+                      onChange={(e) => setCurrentExercise(e.target.value)}
+                      className="modern-input"
+                    />
+                    <button
+                      className="add-exercise-button modern-button"
+                      onClick={handleAddCardioExercise}
+                    >
+                      Add Exercise
+                    </button>
+                  </div>
+                  {cardioExercises.map((exercise, index) => (
+                    <div key={index}>
+                      <h3>{exercise.name}</h3>
+                      {exercise.sets.map((set, setIndex) => (
+                        <div key={setIndex}>
+                          <input
+                            type="number"
+                            placeholder="Time (min)"
+                            value={set.time}
+                            onChange={(e) =>
+                              handleUpdateCardioSet(index, setIndex, "time", e.target.value)
+                            }
+                          />
+                          <input
+                            type="number"
+                            placeholder="Distance (km)"
+                            value={set.distance}
+                            onChange={(e) =>
+                              handleUpdateCardioSet(index, setIndex, "distance", e.target.value)
+                            }
+                          />
+                          <button onClick={() => handleDeleteCardioSet(index, setIndex)}>Delete</button>
+                        </div>
+                      ))}
+                      <button onClick={() => handleAddCardioSet(index)}>Add Cardio</button>
+                    </div>
+                  ))}
+                  <textarea
+                    placeholder="Notes"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                  ></textarea>
+                  <button
+                    onClick={() =>
+                      isEditingWorkout !== null
+                        ? handleSaveEditedCardioWorkout()
+                        : handleFinishCardioWorkout()
+                    }
+                  >
+                    {isEditingWorkout !== null ? "Save Changes" : "Finish Workout"}
+                  </button>
+                  <button onClick={handleCancelCardioWorkout}>Cancel Workout</button>
+                </>
+              )}
+              {cardioHistory.map((workout, index) => (
+                <div key={index}>
+                  <p>
+                    Workout at:{" "}
+                    <input
+                      type="datetime-local"
+                      value={new Date(workout.time).toISOString().slice(0, 16)}
+                      onChange={(e) =>
+                        handleEditCardioWorkoutTime(index, new Date(e.target.value))
+                      }
+                    />
+                  </p>
+                  {workout.exercises.map((exercise, exerciseIndex) => (
+                    <div key={exerciseIndex}>
+                      <strong>{exercise.name}</strong>
+                      {exercise.sets.map((set, setIndex) => (
+                        <p key={setIndex}>
+                          {set.time} min, {set.distance} km
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+                  <p>Notes: {workout.notes}</p>
+                  <button onClick={() => handleEditCardioWorkout(index)}>Edit Workout</button>
                 </div>
               ))}
             </div>
